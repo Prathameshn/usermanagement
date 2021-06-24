@@ -26,6 +26,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  location:{
+    type:{
+      type: String,
+      enum:["Point","LineString","Polygon","GeometryCollection"],
+      trim: true
+    },
+    coordinates:{
+      type:[]
+    }
+  },
   address:{
     street:{
       type: String,
@@ -47,14 +57,6 @@ const userSchema = new mongoose.Schema({
       type: String,
       trim: true
     },
-    coordinatesType:{
-      type: String,
-      trim: true
-    },
-    coordinates:{
-      lat:{ type:Number },
-      lon:{ type:Number }
-    },
     coordinate:{
       lat:{ type:Number },
       lon:{ type:Number }
@@ -64,13 +66,17 @@ const userSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+userSchema.index( { location : "2dsphere" } )
+
+
+
 /**
  * Methods
  */
 userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id','mobile', 'name', 'email', 'address', 'coordinates', 'coordinate', 'createdAt','updatedAt'];
+    const fields = ['id','mobile', 'name', 'email','location', 'address', 'createdAt','updatedAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];

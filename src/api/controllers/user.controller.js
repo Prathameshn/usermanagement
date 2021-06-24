@@ -124,6 +124,30 @@ exports.calculateDistance = async(req,res,next)=>{
   }
 }
 
+exports.nearGeoObject = async(req,res,next)=>{
+  try{
+    let { lat, lon} = req.query
+    if(lat && lon){
+      let users =await User.find(
+        {
+          location:
+            { $near:
+               {
+                 $geometry: { type: "Point",  coordinates: [ 17, 78 ] },
+                 $minDistance: 0,
+                 $maxDistance: 5000
+               }
+            }
+        }
+     )
+     res.json(users)
+    }else{
+      next(new APIError({message:"Please provide provide lat and lon"}));
+    }
+  }catch(error){
+    return next(new APIError(error))
+  }
+}
 
 exports.sortUserlistByDistance = async (req, res, next) => {
   try {

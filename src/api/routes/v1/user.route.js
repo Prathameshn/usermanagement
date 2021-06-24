@@ -15,6 +15,10 @@ router
   .post(controller.create);
 
 router
+  .route('/nearGeoObject')
+  .get(controller.nearGeoObject)
+
+router
   .route('/nearestUser')
   .get(controller.getUserList,controller.calculateDistance,controller.sortUserlistByDistance,controller.nearestUserlist)
 
