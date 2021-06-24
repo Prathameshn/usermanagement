@@ -1,0 +1,16 @@
+# Use yarn.lock instead
+package-lock.json
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Documentation
+docs
+
+# Dependency directories
+node_modules
