@@ -108,9 +108,9 @@ exports.calculateDistance = async(req,res,next)=>{
       for(i=0;i>=0;i++)
       {
         if(users[i]){
-          let coordinates = users[i].address.coordinates
-          if(coordinates.lat && coordinates.lon){
-            users[i].distance = await getDistanceFromLatLonInKm(coordinates.lat, coordinates.lon,lat,lon)
+          let coordinate = users[i].address.coordinate
+          if(coordinate.lat && coordinate.lon){
+            users[i].distance = await getDistanceFromLatLonInKm(coordinate.lat, coordinate.lon,lat,lon)
           }
         }else{
           return next()

@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema({
     coordinates:{
       lat:{ type:Number },
       lon:{ type:Number }
+    },
+    coordinate:{
+      lat:{ type:Number },
+      lon:{ type:Number }
     }
   }
 }, {
@@ -66,7 +70,7 @@ const userSchema = new mongoose.Schema({
 userSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id','mobile', 'name', 'email', 'address', 'createdAt','updatedAt'];
+    const fields = ['id','mobile', 'name', 'email', 'address', 'coordinates', 'coordinate', 'createdAt','updatedAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
